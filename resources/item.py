@@ -53,7 +53,7 @@ class Item(Resource):
 class ItemList(Resource):
     @jwt_required()
     def get(self):
-        items=  list(map(lambda x: x.json(),ItemModel.query.all())) #iterate through entire all() and apply lambda fxn 
+        items=list(map(lambda x: x.json(),ItemModel.query.all())) #iterate through entire all() and apply lambda fxn 
         # i.e for every iterate do x.json() and store in the list
         # items = [item.json() for item in ItemModel.query.all()] #returns all of the objects in the database 
         
