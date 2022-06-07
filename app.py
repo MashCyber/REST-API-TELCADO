@@ -7,18 +7,12 @@ from resources.user import UserRegister
 from resources.item import Item,ItemList
 from resources.stores import Store,StoreList
 
-from db import db
-
 app = Flask(__name__)
 #initialize sqlalchemy here
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db' #connection string to URI
 app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 app.secret_key = "secret"
 api = Api(app)
-
-@app.before_first_request #force create all tables specified on Models unless they exist already
-def create_tables():
-    db.create_all()
 
 jwt = JWT(app,authenticate,identity) # /auth ==> returns JWT token
 
@@ -29,6 +23,5 @@ api.add_resource(Store,'/store/<string:name>')
 api.add_resource(StoreList,'/stores')
  
 if __name__ =='__main__':
-    db.init_app(app)
     app.run(port=5000,debug=True)
     
